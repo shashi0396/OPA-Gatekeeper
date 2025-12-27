@@ -1,10 +1,18 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabels
 metadata:
-  name: required-labels
+  name: require-pod-labels
 spec:
-  enforcementAction: deny
+  enforcementAction: deny   # use dryrun first if needed
   match:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
+    excludedNamespaces:
+      - kube-system
+      - gatekeeper-system
+  parameters:
+    labels:
+      - app
+      - team
+      - environment

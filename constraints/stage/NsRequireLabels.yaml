@@ -1,0 +1,15 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: NsRequiredLabels
+metadata:
+  name: ns-must-have-labels
+spec:
+  enforcementAction: deny   # change to dryrun for audit
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Namespace"]
+  parameters:
+    labels:
+      - environment
+      - owner
+      - state
